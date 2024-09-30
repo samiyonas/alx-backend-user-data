@@ -30,3 +30,9 @@ def stats() -> str:
 def unauthorized_user():
     """ aborts 401 error """
     abort(401)
+
+
+@app_views.route('/forbidden', strict_slashes=False)
+def forbidden():
+    """ forbidden user """
+    abort(403)
