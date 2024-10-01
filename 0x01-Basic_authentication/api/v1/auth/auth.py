@@ -8,12 +8,14 @@ class Auth:
     """ the Authentication class """
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """ returns False """
+        if not path:
+            return True
         if path[len(path) - 1] == '/':
             path1 = path[:len(path) - 1]
         else:
             path1 = path + '/'
 
-        if not path or not excluded_paths:
+        if not excluded_paths:
             return True
         if path in excluded_paths or path1 in excluded_paths:
             return False
