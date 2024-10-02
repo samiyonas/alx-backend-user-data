@@ -33,8 +33,8 @@ class BasicAuth(Auth):
             self, decoded_base64_authorization_header: str) -> (str, str):
         """ return the user email and password from Base64 decoded value """
         if not isinstance(decoded_base64_authorization_header, str):
-            return None
+            return (None, None)
         email_password = decoded_base64_authorization_header.split(":")
         if len(email_password) <= 1:
-            return None
+            return (None, None)
         return tuple(email_password)
