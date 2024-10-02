@@ -9,9 +9,9 @@ class BasicAuth(Auth):
             self, authorization_header: str) -> str:
         """ returns the Base64 part of the Authorization """
         standard = "Basic "
-        if not authorization_header or len(authorization_header) <= 6:
-            return None
         if not isinstance(authorization_header, str):
+            return None
+        if not authorization_header or len(authorization_header) <= 6:
             return None
         if authorization_header[:6] != standard:
             return None
