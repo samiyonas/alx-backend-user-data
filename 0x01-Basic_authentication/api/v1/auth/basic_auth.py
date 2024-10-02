@@ -38,3 +38,23 @@ class BasicAuth(Auth):
         if len(email_password) <= 1:
             return (None, None)
         return tuple(email_password)
+
+    def user_object_from_credentials(
+            self, user_email: str, user_pwd: str) -> TypeVar('User'):
+        """ returns the User instance based on his email and password """
+        if not isinstance(user_email, str):
+            return None
+        if not isinstance(user_pwd, str):
+            return None
+
+        user = User()
+        user.email = user_email
+        user.password = user_pwd
+
+        search_result = user.search({"email": user_email})
+
+        if not search_result:
+            return None
+        if search_result[0].is_valid_password(user_pwd):
+            return search_result
+        return None
