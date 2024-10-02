@@ -58,5 +58,5 @@ class BasicAuth(Auth):
         if not search_result:
             return None
         if search_result[0].is_valid_password(user_pwd):
-            return search_result
+            return search_result[0]
         return None
