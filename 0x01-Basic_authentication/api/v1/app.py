@@ -49,7 +49,7 @@ def filter_requests():
             '/api/v1/status/',
             '/api/v1/unauthorized/',
             '/api/v1/forbidden/']
-    if not auth:
+    if auth:
         if auth.require_auth(request.path, excluded_path):
             if not auth.authorization_header(request):
                 abort(401)
