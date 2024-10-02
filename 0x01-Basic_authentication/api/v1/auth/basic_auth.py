@@ -28,3 +28,13 @@ class BasicAuth(Auth):
             return to_byte.decode("utf-8")
         except Exception:
             return None
+
+    def extract_user_credentials(
+            self, decoded_base64_authorization_header: str) -> (str, str):
+        """ return the user email and password from Base64 decoded value """
+        if not isinstance(decoded_base64_authorization_header, str):
+            return None
+        email_password = decoded_base64_authorization_header.split(":")
+        if len(email_password) <= 1:
+            return None
+        return tuple(email_password)
