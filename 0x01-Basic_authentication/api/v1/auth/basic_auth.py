@@ -11,7 +11,7 @@ class BasicAuth(Auth):
         standard = "Basic "
         if not authorization_header or len(authorization_header) <= 6:
             return None
-        if type(authorization_header) is not str:
+        if type(authorization_header) != str:
             return None
         if authorization_header[:6] != standard:
             return None
