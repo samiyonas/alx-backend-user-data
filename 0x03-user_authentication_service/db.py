@@ -35,6 +35,6 @@ class DB:
         """ add user to the user table """
         session = self._session
         user = User(email=email, hashed_password=hashed_password)
-        new_user = session.add(user)
+        session.add(user)
         session.commit()
         return user
