@@ -18,7 +18,7 @@ def users():
     req = request.get_json()
     try:
         new_user = AUTH.register_user(email=req.email, password=req.password)
-        return jsonify({"email": req.email, "message": "user created}), 200
+        return jsonify({"email": req.email, "message": "user created"}), 200
     except ValueError:
         return jsonify({"message": "email already registered"}), 400
 
