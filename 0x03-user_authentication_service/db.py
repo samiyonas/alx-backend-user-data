@@ -53,11 +53,11 @@ class DB:
         else:
             return found_user
 
-    def update_user(self, id: int, **kwargs) -> None:
+    def update_user(self, Id: int, **kwargs) -> None:
         """ update user """
         session = self._session
-        user = self.find_user_by(id=id)
-        for key, value in kwargs.items(): 
+        user = self.find_user_by(id=Id)
+        for key, value in kwargs.items():
             if key in User.__table__.columns:
                 user.key = value
             else:
