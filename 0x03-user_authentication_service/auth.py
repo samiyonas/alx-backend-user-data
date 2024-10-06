@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Authentication goes here """
 import bcrypt
+from typing import Union
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
 from user import User
@@ -65,3 +66,11 @@ class Auth:
         user.session_id = UUID
 
         return user.session_id
+
+    def get_user_from_session_id(self, session_id: str) -> Union[User, None):
+        """ get a user from a session id """
+        try:
+            user = self._db.find_user_by(session_id=session_id)
+            return user
+        except NoResultFound:
+            return None
