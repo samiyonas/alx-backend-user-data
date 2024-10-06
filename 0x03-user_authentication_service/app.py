@@ -50,7 +50,7 @@ def login():
         session = AUTH.create_session(email)
         response = {"email": email, "message": "logged in"}
         response = jsonify(response)
-        response.set_cookie = {"session_id", session}
+        response.set_cookie("session_id", session)
         return response
     except Exception:
         abort(401)
