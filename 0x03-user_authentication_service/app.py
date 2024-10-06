@@ -15,12 +15,24 @@ def home():
 
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users():
-    req = request.get_json()
+    """ register user """
+    email = request.json["email"]
+    password = request.json["password"]
+
+    if not email or not password:
+        abort(400)
+
     try:
-        new_user = AUTH.register_user(req["email"], req["password"])
-        return jsonify({"email": req["email"], "message": "user created"}), 200
+        new_user = AUTH.register_user(email, password)
+        payload = {"email": email, "message": "user created"}
+        payload = jsonify(payload)
+        payload.status_code = 200
+        return payload
     except ValueError:
-        return jsonify({"message": "email already registered"}), 400
+        payload = {"message": "email already registered"}
+        payload = jsonify(payload)
+        payload.status_code = 400
+        return payload
 
 
 if __name__ == "__main__":
