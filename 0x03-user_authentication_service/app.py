@@ -34,5 +34,27 @@ def users():
         return payload
 
 
+@app.route("/sessions", methods=["POST"], strict_slashes=False)
+def login():
+    """ login route """
+    email = request.form["email"]
+    password = request.form["password"]
+
+    if not email or not password:
+        abort(401)
+
+    try:
+        new_user = AUTH.valid_login(email, password)
+        if not new_user:
+            abort(401)
+        session = AUTH.create_session(email)
+        response = {"email": email, "message": "logged in"}
+        response = jsonify(response)
+        response.set_cookie = {"session_id", session}
+        return response
+    except Exception:
+        abort(401)
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port="5000")
