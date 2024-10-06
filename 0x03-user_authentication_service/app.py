@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ basic flask app """
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, abort
 from auth import Auth
 
 app = Flask(__name__)
@@ -16,8 +16,8 @@ def home():
 @app.route("/users", methods=["POST"], strict_slashes=False)
 def users():
     """ register user """
-    email = request.json["email"]
-    password = request.json["password"]
+    email = request.form["email"]
+    password = request.form["password"]
 
     if not email or not password:
         abort(400)
@@ -26,8 +26,7 @@ def users():
         new_user = AUTH.register_user(email, password)
         payload = {"email": email, "message": "user created"}
         payload = jsonify(payload)
-        payload.status_code = 200
-        return payload
+        return payload, 200
     except ValueError:
         payload = {"message": "email already registered"}
         payload = jsonify(payload)
