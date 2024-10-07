@@ -39,13 +39,12 @@ def login():
     """ login route """
     if request.method == "DELETE":
         session_id = request.cookies.get("session_id", None)
-        try:
-            user = self._db.find_user_by(session_id=session_id)
-            des = AUTH.destroy_session(user.id)
-            if not des:
-                return redirect("/")
-        except NoResultFound:
-            abort(403)
+        user = AUTH.get_user_from_session_id(session_id)
+
+        if user:
+            AUTH.destroy_session(session_id)
+            return redirect("/")
+        abort(403)
 
     email = request.form["email"]
     password = request.form["password"]
