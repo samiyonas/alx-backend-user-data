@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ basic flask app """
-from flask import Flask, jsonify, request, abort, url, redirect
+from flask import Flask, jsonify, request, abort, redirect
 from auth import Auth
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def login():
             user = self._db.find_user_by(session_id=session_id)
             des = AUTH.destroy_session(user.id)
             if not des:
-                return redirect(url("/"))
+                return redirect("/")
         except NoResultFound:
             abort(403)
 
