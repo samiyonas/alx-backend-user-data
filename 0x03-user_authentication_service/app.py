@@ -109,7 +109,10 @@ def update_password():
 
     AUTH.update_password(reset_token, password)
 
-    return jsonify({"email": email, "message": "Password updated"}), 200
+    response = jsonify({"email": email, "message": "Password updated"})
+    response.status_code = 200
+
+    return response
 
 
 if __name__ == "__main__":
