@@ -107,7 +107,10 @@ def update_password():
     if stored_token != reset_token:
         abort(403)
 
-    AUTH.update_password(reset_token, new_password)
+    try:
+        AUTH.update_password(reset_token, new_password)
+    except ValueError:
+        abort(403)
 
     response = jsonify({"email": email, "message": "Password updated"})
     response.status_code = 200
