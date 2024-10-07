@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ basic flask app """
-from flask import Flask, jsonify, request, abort, redirect
+from flask import Flask, jsonify, request, abort, redirect, url
 from auth import Auth
 
 app = Flask(__name__)
@@ -43,7 +43,7 @@ def login():
 
         if user:
             AUTH.destroy_session(session_id)
-            return redirect("/")
+            return redirect(url("/"))
         abort(403)
 
     email = request.form["email"]
