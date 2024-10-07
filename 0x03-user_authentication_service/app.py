@@ -38,7 +38,7 @@ def users():
 def login():
     """ login route """
     if request.method == "DELETE":
-        session_id = request.headers["Set-Cookie"].split("=")[1]
+        session_id = request.cookies.get("session_id", None)
         try:
             user = self._db.find_user_by(session_id=session_id)
             des = AUTH.destroy_session(user.id)
