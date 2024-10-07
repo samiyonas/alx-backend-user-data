@@ -43,7 +43,7 @@ def login():
 
         if user:
             AUTH.destroy_session(session_id)
-            return redirect(url("/"))
+            return redirect("/")
         abort(403)
 
     email = request.form["email"]
